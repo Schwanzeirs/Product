@@ -55,11 +55,12 @@ public class Variant implements Serializable {
 
     private Instant updatedAt;
 
-    public Variant(VariantRequest request) {
+    public Variant(VariantRequest request, Product product) {
         this.name = request.getName();
         this.type = request.getType();
         this.price = request.getPrice();
         this.quantity = request.getQuantity();
+        this.product = product;
     }
 
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.product.dto.ProductRequest;
-import com.product.entities.Product;
+import com.product.dto.ProductResponse;
 import com.product.services.ProductService;
 
 @RestController
@@ -18,8 +18,8 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping
-    public Product insert(@RequestBody ProductRequest request) {
-        Product result;
+    public ProductResponse insert(@RequestBody ProductRequest request) {
+        ProductResponse result;
         try {
             result = productService.insert(request);
         } catch (Exception e) {

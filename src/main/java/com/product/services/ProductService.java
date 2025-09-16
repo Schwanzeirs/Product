@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.product.dto.ProductRequest;
+import com.product.dto.ProductResponse;
 import com.product.entities.Product;
 import com.product.entities.Variant;
 import com.product.repository.ProductRepository;
@@ -21,19 +22,23 @@ public class ProductService {
     @Autowired
     private VariantRepository variantRepository;
 
-    public Product insert(ProductRequest request) {
-        Product result;
+    public ProductResponse insert(ProductRequest request) {
+        Product product;
         Variant variant = null;
         try {
+            product = productRepository.save(new Product(request));
             if(request.getVariantRequest() != null) {
-                variant = variantRepository.save(new Variant(request.getVariantRequest()));
+                variant = variantRepository.save(new Variant(request.getVariantRequest(), product));
             }
-            result = productRepository.save(variant != null ? new Product(request, variant) : new Product(request));
+            if(variant != null) {
+                product.getVariants().add(variant);
+                productRepository.save(product);
+            }
         } catch (Exception e) {
             throw e;
         }
 
-        return result;
+        return new ProductResponse(product);
     }
 
 }

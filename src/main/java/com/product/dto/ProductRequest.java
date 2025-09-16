@@ -7,6 +7,5 @@ public class ProductRequest {
     private String name;
     private String description;
     private String picture;
-    private String review;
     private VariantRequest variantRequest;
 }
