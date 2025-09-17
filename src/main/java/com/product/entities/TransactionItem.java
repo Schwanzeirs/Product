@@ -3,18 +3,16 @@ package com.product.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,29 +22,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "transaction")
-public class Transaction implements Serializable {
-
+@Table(name = "transaction_item")
+public class TransactionItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String transactionNumber;
-    private Instant transactionDate;
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "transaction_id", nullable = false)
+    private Transaction transaction;
 
-    @Column(name = "total_amount")
-    private BigDecimal totalAmount;
-    
-    private String status;
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
-    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TransactionItem> transactionItems = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "variant_id", nullable = false)
+    private Variant variant;
+
+    private Integer quantity;
+
+    @Column(name = "sub_amount")
+    private BigDecimal subAmount;
 
     @CreationTimestamp
     @Column(updatable = false)
     private Instant createdAt;
 
     private Instant updatedAt;
-    
 }

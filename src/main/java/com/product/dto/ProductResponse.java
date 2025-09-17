@@ -1,6 +1,5 @@
 package com.product.dto;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +15,6 @@ public class ProductResponse {
     private String description;
     private String picture;
     private List<VariantResponse> variants = new ArrayList<>();
-    private Instant createdAt;
-    private Instant updatedAt;
 
     public ProductResponse(Product product) {
         this.id = product.getId();
@@ -26,10 +23,10 @@ public class ProductResponse {
         this.picture = product.getPicture();
         if(product.getVariants() != null) {
             for(Variant variant : product.getVariants()) {
-                variants.add(new VariantResponse(variant));
+                if(variant.getParent() == null) {
+                    variants.add(new VariantResponse(variant));
+                }
             }
         }
-        this.createdAt = product.getCreatedAt();
-        this.updatedAt = product.getUpdatedAt();
     }
 }

@@ -1,18 +1,19 @@
 package com.product.entities;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,24 +29,23 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "transaction_id", nullable = false)
-    private Transaction transaction;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "variant_id", nullable = false)
-    private Variant variant;
-
-    private Integer quantity;
-    private BigDecimal subAmount;
+    private Long userId;
+    
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> items = new ArrayList<>();
 
     @CreationTimestamp
     @Column(updatable = false)
     private Instant createdAt;
 
     private Instant updatedAt;
+
+    public Cart(Long userId) {
+        this.userId = userId;
+    }
+
+    public void addItem(CartItem item) {
+        items.add(item);
+    }
+
 }

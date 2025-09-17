@@ -41,4 +41,20 @@ public class ProductService {
         return new ProductResponse(product);
     }
 
+    public ProductResponse find(Long id) {
+        return new ProductResponse(productRepository.findById(id).get());
+    }
+
+    public Variant findVariant(Long id) {
+        return variantRepository.findById(id).get();
+    }
+
+    public void deleteVariant(Long id) {
+        variantRepository.deleteById(id);
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
+
 }

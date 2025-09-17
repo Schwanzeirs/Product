@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.product.dto.VariantRequest;
 
 import jakarta.persistence.CascadeType;
@@ -40,6 +41,7 @@ public class Variant implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnore
     private Product product;
 
     @ManyToOne
