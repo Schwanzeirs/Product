@@ -48,4 +48,8 @@ public class Cart implements Serializable {
         items.add(item);
     }
 
+    public void deleteItem(CartItem item) {
+        items.remove(item);
+    }
+
 }

@@ -36,7 +36,7 @@ public class Transaction implements Serializable {
     private Long userId;
 
     @Column(name = "total_amount")
-    private BigDecimal totalAmount;
+    private BigDecimal totalAmount = BigDecimal.valueOf(0);
     
     private String status;
 
@@ -48,5 +48,17 @@ public class Transaction implements Serializable {
     private Instant createdAt;
 
     private Instant updatedAt;
+
+    public Transaction(Long userId, String status) {
+        this.userId = userId;
+        this.transactionDate = Instant.now();
+        this.transactionNumber = String.valueOf(Instant.now().toEpochMilli());
+        this.status = status;
+    }
+
+    public void addItems(TransactionItem item) {
+        this.transactionItems.add(item);
+        this.totalAmount = this.totalAmount.add(item.getSubAmount());
+    }
     
 }

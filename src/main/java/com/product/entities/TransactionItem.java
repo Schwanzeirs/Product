@@ -50,4 +50,12 @@ public class TransactionItem implements Serializable {
     private Instant createdAt;
 
     private Instant updatedAt;
+
+    public TransactionItem(CartItem cartItem, Transaction transaction) {
+        this.transaction = transaction;
+        this.product = cartItem.getProduct();
+        this.variant = cartItem.getVariant();
+        this.quantity = cartItem.getQuantity();
+        this.subAmount = cartItem.getSubAmount();
+    }
 }

@@ -35,7 +35,7 @@ public class CartService {
     public CartResponse createOrFind(Long userId) {
         Cart cart;
         try {
-            cart = cartRepository.findByUserId(userId).isPresent() ? cartRepository.findByUserId(userId).get() : cartRepository.save(new Cart(userId));
+            cart = cartRepository.findByUserId(userId).orElse(cartRepository.save(new Cart(userId)));
         } catch (Exception e) {
             throw e;
         }
@@ -46,7 +46,7 @@ public class CartService {
     public CartResponse addItem(CartItemRequest request) {
         Cart cart;
         try {
-            cart = cartRepository.findByUserId(request.getUserId()).isPresent() ? cartRepository.findByUserId(request.getUserId()).get() : cartRepository.save(new Cart(request.getUserId()));
+            cart = cartRepository.findByUserId(request.getUserId()).orElse(new Cart(request.getUserId()));
             Product product = productRepository.findById(request.getProductId()).get();
             Variant variant = variantRepository.findById(request.getVariantId()).get();
             CartItem item = new CartItem(request, cart, product, variant);
