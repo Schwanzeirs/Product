@@ -9,15 +9,19 @@ import com.product.entities.Cart;
 import com.product.entities.CartItem;
 import com.product.entities.Product;
 import com.product.entities.Variant;
+import com.product.exception.validation.InvalidRequestException;
 import com.product.repository.CartItemRepository;
 import com.product.repository.CartRepository;
 import com.product.repository.ProductRepository;
 import com.product.repository.VariantRepository;
+import com.product.util.ValidationUtil;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Transactional
+@Slf4j
 public class CartService {
     
     @Autowired
@@ -35,6 +39,9 @@ public class CartService {
     public CartResponse createOrFind(Long userId) {
         Cart cart;
         try {
+            if(userId == null) {
+                throw new InvalidRequestException(500, "User id can't be null", "Insert user id");
+            }
             cart = cartRepository.findByUserId(userId).orElse(cartRepository.save(new Cart(userId)));
         } catch (Exception e) {
             throw e;
@@ -46,6 +53,7 @@ public class CartService {
     public CartResponse addItem(CartItemRequest request) {
         Cart cart;
         try {
+            request.validateParam();
             cart = cartRepository.findByUserId(request.getUserId()).orElse(new Cart(request.getUserId()));
             Product product = productRepository.findById(request.getProductId()).get();
             Variant variant = variantRepository.findById(request.getVariantId()).get();
