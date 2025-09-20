@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.product.dto.TransactionRequest;
-import com.product.dto.TransactionResponse;
+import com.product.dto.dataDto.TransactionResponse;
+import com.product.dto.request.TransactionRequest;
 import com.product.entities.Cart;
 import com.product.entities.CartItem;
 import com.product.entities.Transaction;

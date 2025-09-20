@@ -1,4 +1,4 @@
-package com.product.dto;
+package com.product.dto.dataDto;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -11,7 +11,7 @@ import com.product.entities.TransactionItem;
 import lombok.Data;
 
 @Data
-public class TransactionResponse {
+public class TransactionResponse implements DataDto {
     private String transacationNumber;
     private Instant transactionDate;
     private BigDecimal totalAmount;

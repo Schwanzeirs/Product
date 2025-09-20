@@ -1,4 +1,4 @@
-package com.product.dto;
+package com.product.dto.dataDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import com.product.entities.CartItem;
 import lombok.Data;
 
 @Data
-public class CartResponse {
+public class CartResponse implements DataDto {
     private List<CartItemResponse> items = new ArrayList<>();
 
     public CartResponse(Cart cart) {

@@ -3,8 +3,9 @@ package com.product.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.product.dto.ProductRequest;
-import com.product.dto.ProductResponse;
+import com.product.dto.dataDto.ProductResponse;
+import com.product.dto.dataDto.VariantResponse;
+import com.product.dto.request.ProductRequest;
 import com.product.entities.Product;
 import com.product.entities.Variant;
 import com.product.repository.ProductRepository;
@@ -45,8 +46,8 @@ public class ProductService {
         return new ProductResponse(productRepository.findById(id).get());
     }
 
-    public Variant findVariant(Long id) {
-        return variantRepository.findById(id).get();
+    public VariantResponse findVariant(Long id) {
+        return new VariantResponse(variantRepository.findById(id).get());
     }
 
     public void deleteVariant(Long id) {

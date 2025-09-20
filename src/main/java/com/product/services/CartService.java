@@ -3,8 +3,8 @@ package com.product.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.product.dto.CartItemRequest;
-import com.product.dto.CartResponse;
+import com.product.dto.dataDto.CartResponse;
+import com.product.dto.request.CartItemRequest;
 import com.product.entities.Cart;
 import com.product.entities.CartItem;
 import com.product.entities.Product;

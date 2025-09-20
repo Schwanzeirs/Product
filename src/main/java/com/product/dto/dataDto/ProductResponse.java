@@ -1,4 +1,4 @@
-package com.product.dto;
+package com.product.dto.dataDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import com.product.entities.Variant;
 import lombok.Data;
 
 @Data
-public class ProductResponse {
+public class ProductResponse implements DataDto {
     private Long id;
     private String name;
     private String description;

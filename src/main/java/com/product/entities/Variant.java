@@ -8,7 +8,7 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.product.dto.VariantRequest;
+import com.product.dto.request.VariantRequest;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

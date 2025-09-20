@@ -1,15 +1,18 @@
 package com.product.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.product.dto.TransactionRequest;
-import com.product.dto.TransactionResponse;
-import com.product.dto.UpdateTransactionRequest;
+import com.product.dto.request.TransactionRequest;
+import com.product.dto.request.UpdateTransactionRequest;
+import com.product.dto.response.ApiResponse;
+import com.product.dto.response.HeaderResponse;
 import com.product.services.TransactionService;
+import com.product.util.ResponseBuilder;
 
 @RestController
 @RequestMapping("/api/transaction")
@@ -18,13 +21,28 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private ResponseBuilder responseBuilder;
+
     @PostMapping("/checkout")
-    public TransactionResponse createTransaction(@RequestBody TransactionRequest request) {
-        return transactionService.checkoutTransaction(request);
+    public ResponseEntity<HeaderResponse> createTransaction(@RequestBody TransactionRequest request) {
+        return responseBuilder.buildSuccessResponse(
+            new ApiResponse(
+                200, 
+                "Success", 
+                transactionService.checkoutTransaction(request)
+            )
+        );
     }
 
     @PostMapping("/update")
-    public TransactionResponse updateTransaction(@RequestBody UpdateTransactionRequest request) {
-        return transactionService.updateTransaction(request.getUserId(), request.getTransactionId(), request.getStatus());
+    public ResponseEntity<HeaderResponse> updateTransaction(@RequestBody UpdateTransactionRequest request) {
+        return responseBuilder.buildSuccessResponse(
+            new ApiResponse(
+                200, 
+                "Success", 
+                transactionService.updateTransaction(request.getUserId(), request.getTransactionId(), request.getStatus())
+            )
+        );
     }
 }

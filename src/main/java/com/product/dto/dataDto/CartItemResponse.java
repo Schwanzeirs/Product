@@ -1,4 +1,4 @@
-package com.product.dto;
+package com.product.dto.dataDto;
 
 import java.math.BigDecimal;
 
@@ -7,7 +7,7 @@ import com.product.entities.CartItem;
 import lombok.Data;
 
 @Data
-public class CartItemResponse {
+public class CartItemResponse implements DataDto {
     private ProductResponse product;
     private VariantResponse variant;
     private Integer quantity;

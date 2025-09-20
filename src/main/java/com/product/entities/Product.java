@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.product.dto.ProductRequest;
+import com.product.dto.request.ProductRequest;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
